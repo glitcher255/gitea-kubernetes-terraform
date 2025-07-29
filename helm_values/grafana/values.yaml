@@ -1,0 +1,36 @@
+grafana:
+  adminPassword: "admin123"
+  service:
+    type: ClusterIP
+
+
+  
+  # ingress:
+  #   enabled: true
+  #   ingressClassName: traefik
+  #   annotations:
+  #     cert-manager.io/cluster-issuer: letsencrypt-staging
+  #     acme.cert-manager.io/http01-edit-in-place: "true"
+  #   hosts:
+  #     - grafana.51.8.215.187.nip.io
+  #   tls:
+  #     - hosts:
+  #       - grafana.51.8.215.187.nip.io
+  #   secretName: grafana-tls
+
+
+
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki-gateway
+      isDefault: false
+      editable: true
+
+    - name: Tempo
+      type: tempo
+      access: proxy
+      url: http://tempo:3200
+      isDefault: false
+      editable: true

@@ -1,0 +1,24 @@
+controller:
+  service:
+    type: LoadBalancer
+
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: true
+
+  ingressClass: nginx
+
+  admissionWebhooks:
+    enabled: true
+    patch:
+      enabled: true
+
+  config:
+    ssl-redirect: "false"
+
+defaultBackend:
+  enabled: true
+
+  defaultBackend:
+    enabled: true
