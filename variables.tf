@@ -1,11 +1,12 @@
 variable "location" {
-  default = "eastus"
+  default = "eastus_DON'T_USE_DEFAULTS"
 }
 
 variable "rg_name" {
-  default = "RG_main_eastus_dev1"
+  default = "ASSIGNED_AUTOMATICALLY"
 }
+#RG_main_${var.location}_${var.environment}
 
 variable "environment" {
-  default = "dev1"
+  default = "dev1_DON'T_USE_DEFAULTS"
 }
