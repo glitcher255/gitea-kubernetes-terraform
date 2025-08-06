@@ -3,7 +3,7 @@ variable "location" {
 }
 
 variable "rg_name" {
-  default = "RG_main_${var.location}_${var.environment}"
+  default = "RG_main_eastus_dev1"
 }
 
 variable "environment" {
