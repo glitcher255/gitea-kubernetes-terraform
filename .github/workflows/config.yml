@@ -9,6 +9,12 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      
+    env:
+      #GitHub auth with Terraform cloud used in "provider.tf" # Address is app.terraform.io becomes app_terraform.io. (must be prefixed with "TF_TOKEN_")
+      ##########################################################################
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_app_terraform_io }}
+      ##########################################################################
 
     steps:
       - name: Checkout code
