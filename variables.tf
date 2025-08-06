@@ -1,5 +1,5 @@
 variable "location" {
-  default = "eastus_DON'T_USE_DEFAULTS"
+  default = "eastus"
 }
 
 variable "rg_name" {
@@ -8,5 +8,5 @@ variable "rg_name" {
 #RG_main_${var.location}_${var.environment}
 
 variable "environment" {
-  default = "dev1_DON'T_USE_DEFAULTS"
+  default = "dev1"
 }
