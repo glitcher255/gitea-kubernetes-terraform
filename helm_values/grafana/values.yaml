@@ -1,5 +1,5 @@
 grafana:
-  adminPassword: "admin123"
+  # adminPassword: "???"
   service:
     type: ClusterIP
 

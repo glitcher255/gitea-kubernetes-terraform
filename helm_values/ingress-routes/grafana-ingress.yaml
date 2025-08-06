@@ -8,10 +8,10 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`glitcher-grafana.duckdns.org`)
+    - match: Host(`glitcher.ddnsfree.com`)
       kind: Rule
       services:
         - name: monitoring-grafana
           port: 80
-  tls:
-    certResolver: letsencrypt
+#  tls:
+#    certResolver: letsencrypt

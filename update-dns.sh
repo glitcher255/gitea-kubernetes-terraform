@@ -1,0 +1,44 @@
+# MAKE SURE NAMESPACE IS CORRECT
+DOMAIN1="glitcher-gitea"
+DOMAIN2="glitcher-grafana"
+NAMESPACE="monitoring"
+VAULT_NAME="glitcher-vault"
+DYNU_TOKEN="dynu-token"
+#SECRET_NAME="duckdns-token"
+SERVICE="traefik"
+MAX_TRIES=20
+SLEEP_SEC=3
+
+# Get token from Azure Key Vault
+DYNUDNS_TOKEN=$(az keyvault secret show --vault-name "$VAULT_NAME" --name "$DYNU_TOKEN" --query "value" -o tsv)
+
+# Get IP (retry loop)
+COUNT=0
+while [ "$COUNT" -lt "$MAX_TRIES" ]; do
+  IP=$(kubectl get svc "$SERVICE" -n "$NAMESPACE" -o jsonpath="{.status.loadBalancer.ingress[0].ip}" 2>/dev/null || true)
+  echo "Attempt $COUNT: IP = $IP"
+  test -n "$IP" && break
+  sleep "$SLEEP_SEC"
+  COUNT=$((COUNT + 1))
+done
+
+# Update DuckDNS
+#curl -s "https://www.duckdns.org/update?domains=${DOMAIN1}&token=${DUCKDNS_TOKEN}&ip=${IP}&verbose=true"
+#curl -s "https://www.duckdns.org/update?domains=${DOMAIN2}&token=${DUCKDNS_TOKEN}&ip=${IP}&verbose=true"
+
+# update root domain (glitcher.ddnsfree.com)
+curl -X POST "https://api.dynu.com/v2/dns/12259938" -H "accept: application/json" -H "API-Key: $DYNUDNS_TOKEN" -H "Content-Type: application/json" -d "{\"name\":\"somedomain.com\",\"group\":\"\",\"ipv4Address\":\"$IP\",\"ipv6Address\":\"\",\"ttl\":90,\"ipv4\":true,\"ipv6\":true,\"ipv4WildcardAlias\":true,\"ipv6WildcardAlias\":true,\"allowZoneTransfer\":false,\"dnssec\":false}"
+
+# update subdomain (gitea.glitcher.ddnsfree.com)
+curl -X POST "https://api.dynu.com/v2/dns/12259938/record/14879326" -H "accept: application/json" -H "API-Key: $DYNUDNS_TOKEN" -H "Content-Type: application/json" -d "{\"nodeName\":\"gitea\",\"recordType\":\"A\",\"ttl\":300,\"state\":true,\"group\":\"\",\"ipv4Address\":\"${IP}\"}"
+
+# update subdomain (grafana.glitcher.ddnsfree.com)
+curl -X POST "https://api.dynu.com/v2/dns/12259938/record/14879311" -H "accept: application/json" -H "API-Key: $DYNUDNS_TOKEN" -H "Content-Type: application/json" -d "{\"nodeName\":\"grafana\",\"recordType\":\"A\",\"ttl\":300,\"state\":true,\"group\":\"\",\"ipv4Address\":\"${IP}\"}"
+
+
+#Get root domain ID: curl -X GET "https://api.dynu.com/v2/dns/getroot/glitcher.ddnsfree.com" -H "accept: application/json" -H "API-Key: $API_KEY"
+#Get DNS Record: curl -X GET "https://api.dynu.com/v2/dns/12259938/record" -H "accept: application/json" -H "API-Key: $API_KEY"
+# domain: 12259938
+# grafana: 14879311
+# gitea: 14879326
+#API KEY: UWWe6a6457Ud33gc436Ua47f43cdV66Y

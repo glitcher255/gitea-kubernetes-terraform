@@ -8,8 +8,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name                  = "default"
     vm_size               = "Standard_B2s"
     auto_scaling_enabled  = true
-    min_count             = 1
-    max_count             = 3
+    min_count             = 2
+    max_count             = 4
     type                  = "VirtualMachineScaleSets"
     vnet_subnet_id        = var.subnet_id
     os_disk_size_gb       = 32 #64
