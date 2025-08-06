@@ -11,7 +11,8 @@ jobs:
       contents: read
       
     env:
-      #GitHub auth with Terraform cloud used in "provider.tf" # Address is app.terraform.io becomes app_terraform.io. (must be prefixed with "TF_TOKEN_")
+      # GitHub auth with Terraform cloud used in "provider.tf" # Address is app.terraform.io becomes app_terraform.io. (must be prefixed with "TF_TOKEN_")
+      # If set to local execution in terraform portal, only syncs states rather than also execute
       ##########################################################################
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_app_terraform_io }}
       ##########################################################################
@@ -20,6 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+# Authenticates with Azure when Terraform portal is set to local, when set to Remote TF_TOKEN authenticates with Azure instead with client-id, tenant and subscription
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
