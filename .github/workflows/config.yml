@@ -38,6 +38,9 @@ jobs:
       - name: Terraform apply
         run: terraform apply -auto-approve -var="location=eastus" -var="environment=dev1"
 
+      - name: Cluster authenticate
+        run: az aks get-credentials --resource-group RG_main_eastus_dev1 --name AKS_cluster --overwrite-existing
+
       - name: Make Script Executable
         run: chmod +x deploy-apps.sh
 
