@@ -10,6 +10,7 @@ jobs:
       id-token: write
       contents: read
       
+    # Create a service principal in Azure then create a GitHub federated identity
     env:
       # GitHub auth with Terraform cloud used in "provider.tf" # Address is app.terraform.io becomes app_terraform.io. (must be prefixed with "TF_TOKEN_")
       # If set to local execution in terraform portal, only syncs states rather than also execute
@@ -38,7 +39,19 @@ jobs:
         run: terraform apply -auto-approve -var="location=eastus" -var="environment=dev1"
 
       - name: Make Script Executable
-        run: chmod +x scripts/deploy-apps.sh
+        run: chmod +x deploy-apps.sh
 
-      # - name: Run Config Script
-      #   run: ./scripts/config.sh
+      - name: Run deploy apps Script
+        run: bash deploy-apps.sh
+
+      - name: Make Script Executable
+        run: chmod +x update-dns.sh
+
+      - name: Run dns updater Script
+        run: bash update-dns.sh
+
+      - name: Make Script Executable
+        run: chmod +x update-ingress.sh
+
+      - name: Run ingress updater Script
+        run: bash update-ingress.sh
