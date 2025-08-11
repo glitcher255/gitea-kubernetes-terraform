@@ -39,9 +39,3 @@ jobs:
 
       - name: Terraform destroy
         run: terraform destroy -auto-approve
-
-      # - name: Make Script Executable
-      #   run: chmod +x scripts/teardown.sh
-
-      # - name: Run teardown Script
-      #   run: ./scripts/teardown.sh

@@ -4,7 +4,6 @@ DOMAIN2="glitcher-grafana"
 NAMESPACE="monitoring"
 VAULT_NAME="glitcher-vault"
 DYNU_TOKEN="dynu-token"
-#SECRET_NAME="duckdns-token"
 SERVICE="traefik"
 MAX_TRIES=20
 SLEEP_SEC=3
@@ -22,10 +21,6 @@ while [ "$COUNT" -lt "$MAX_TRIES" ]; do
   COUNT=$((COUNT + 1))
 done
 
-# Update DuckDNS
-#curl -s "https://www.duckdns.org/update?domains=${DOMAIN1}&token=${DUCKDNS_TOKEN}&ip=${IP}&verbose=true"
-#curl -s "https://www.duckdns.org/update?domains=${DOMAIN2}&token=${DUCKDNS_TOKEN}&ip=${IP}&verbose=true"
-
 # update root domain (glitcher.ddnsfree.com)
 curl -X POST "https://api.dynu.com/v2/dns/12259938" -H "accept: application/json" -H "API-Key: $DYNUDNS_TOKEN" -H "Content-Type: application/json" -d "{\"name\":\"somedomain.com\",\"group\":\"\",\"ipv4Address\":\"$IP\",\"ipv6Address\":\"\",\"ttl\":90,\"ipv4\":true,\"ipv6\":true,\"ipv4WildcardAlias\":true,\"ipv6WildcardAlias\":true,\"allowZoneTransfer\":false,\"dnssec\":false}"
 
@@ -41,4 +36,3 @@ curl -X POST "https://api.dynu.com/v2/dns/12259938/record/14879311" -H "accept: 
 # domain: 12259938
 # grafana: 14879311
 # gitea: 14879326
-#API KEY: UWWe6a6457Ud33gc436Ua47f43cdV66Y
