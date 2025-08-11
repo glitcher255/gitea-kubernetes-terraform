@@ -10,3 +10,8 @@ variable "rg_name" {
 variable "environment" {
   default = "dev1"
 }
+
+variable "terraform_workspace" {
+  type        = string
+  default     = "Terraform_Kubernetes_Gitea"
+}

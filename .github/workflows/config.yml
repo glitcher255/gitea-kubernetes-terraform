@@ -13,10 +13,10 @@ jobs:
     # Create a service principal in Azure then create a GitHub federated identity
     env:
       # GitHub auth with Terraform cloud used in "provider.tf" # Address is app.terraform.io becomes app_terraform.io. (must be prefixed with "TF_TOKEN_")
-      # If set to local execution in terraform portal, only syncs states rather than also execute
-      ##########################################################################
+      # Syncs states if local execution is used, also used for Azure authentication if remote execution is used
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_app_terraform_io }}
-      ##########################################################################
+
+      # Required for local execution and OIDC (ARM_SECRET_ID if no OIDC)
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
