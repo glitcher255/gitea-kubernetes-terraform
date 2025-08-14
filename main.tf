@@ -26,19 +26,6 @@ module "NSG" {
     depends_on = [ module.vnet ]
 }
 
-# module "namespaces" {
-#   source      = "./modules/namespaces"
-#   depends_on  = [module.cluster]
-# }
-
-# module "monitoring" {
-#   source               = "./modules/helm"
-#   monitoring_namespace = module.namespaces.monitoring_namespace
-#   kube_config          = module.cluster.kube_config
-#   depends_on           = [module.namespaces, module.cluster]
-# }
-
-
 provider "kubernetes" {
     host                   = module.cluster.kube_config.0.host
     client_certificate     = base64decode(module.cluster.kube_config.0.client_certificate)
