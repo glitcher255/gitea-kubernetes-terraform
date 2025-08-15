@@ -1,6 +1,7 @@
 VAULT_NAME="glitcher-vault"
 GRAFANA_SECRET_NAME="grafana-admin-password"
 GRAFANA_PASSWORD=$(az keyvault secret show --vault-name "$VAULT_NAME" --name "$GRAFANA_SECRET_NAME" --query value -o tsv)
+SLACK_URI=$(az keyvault secret show --vault-name "$VAULT_NAME" --name"$SLACK_URI_NAME" --query value -o tsv)
 
 kubectl create namespace monitoring
 
@@ -24,7 +25,7 @@ helm upgrade --install traefik traefik/traefik --namespace monitoring -f helm_va
 
 kubectl apply -f helm_values/traefik/middleware.yaml
 
-helm upgrade --install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring --version 75.13.0 -f helm_values/grafana/values.yaml --set grafana.adminPassword="$GRAFANA_PASSWORD"
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring --version 75.13.0 -f helm_values/grafana/values.yaml --set grafana.adminPassword="$GRAFANA_PASSWORD" --set alertmanager.config.receivers[0].slack_configs[0].api_url="$SLACK_URI"
 
 helm upgrade --install alloy grafana/alloy --namespace monitoring -f helm_values/alloy/values.yaml
 helm upgrade --install loki grafana/loki --namespace monitoring --version 6.32.0 -f helm_values/loki/values.yaml

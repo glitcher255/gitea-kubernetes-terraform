@@ -26,7 +26,10 @@ This can be split into separate namespaces later.
 ---
 
 ## Architecture
-> Diagram to be added here.
+
+![Architecture](screenshots/gitea_diagram.png)
+
+---
 
 **Current flow:**
 1. **Traefik** handles HTTP & HTTPS traffic.
