@@ -13,5 +13,5 @@ spec:
       services:
         - name: gitea-http
           port: 3000
-#  tls:
-#    certResolver: letsencrypt
+  tls:
+    certResolver: letsencrypt

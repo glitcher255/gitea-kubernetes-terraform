@@ -13,5 +13,5 @@ spec:
       services:
         - name: monitoring-grafana
           port: 80
-#  tls:
-#    certResolver: letsencrypt
+  tls:
+    certResolver: letsencrypt

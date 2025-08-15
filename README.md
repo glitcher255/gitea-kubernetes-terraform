@@ -3,7 +3,7 @@
 ## Overview
 This project deploys a monitoring and ingress stack on an Azure Kubernetes Service (AKS) cluster using **Helm** and **GitHub Actions** for CI/CD.  
 It includes:
-- **Traefik** (ingress controller, HTTPS termination)
+- **Traefik** (ingress controller, HTTPS termination, Let's Encrypt certificates)
 - **Grafana** (visualization)
 - **Prometheus** (metrics collection)
 - **Loki** (log aggregation)
@@ -11,8 +11,8 @@ It includes:
 - **MinIO** (object storage for Loki chunks)
 - **Gitea** (self-hosted Git service)
 
-All components are deployed into a single namespace: `monitoring` for simplicity.  
-This can be split into separate namespaces later.
+Gitea accessable at: https://gitea.glitcher.ddnsfree.com
+Grafana portal accessable at: https://glitcher.ddnsfree.com
 
 ---
 
