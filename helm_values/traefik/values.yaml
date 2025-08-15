@@ -18,7 +18,7 @@ entryPoints:
 
 ingressRoute:
   dashboard:
-    enabled: false  # Disable useless default routes
+    enabled: false  # Disable dashboard
 
 providers:
   kubernetesCRD:
@@ -27,19 +27,19 @@ providers:
     enabled: true
 
 log:
-  level: WARN  # Keep logs lean for production
+  level: WARN  # Log levels
 
 accessLog:
-  enabled: false  # Enable only for debugging
+  enabled: false  # Enable for debugging
 
 api:
-  dashboard: false  # Don't expose this garbage in production
+  dashboard: false  # Don't expose this in production
 
 # ACME TLS via Let's Encrypt
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: your@email.com     # Use a real email
+      email: your@email.com
       storage: /data/acme.json  # Will persist certs
       httpChallenge:
         entryPoint: web
@@ -54,8 +54,8 @@ persistence:
 #   enabled: true
 #   accessMode: ReadWriteOnce
 #   size: 1Gi
-#   storageClassName: standard  # or whatever your cluster supports
-#   existingClaim: ""           # leave blank unless reusing
+#   storageClassName: standard  # whichever cluster supports
+#   existingClaim: ""
 
 service:
   type: LoadBalancer

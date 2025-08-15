@@ -16,17 +16,18 @@ terraform {
   }
   required_version = ">= 1.12.0"
 
-  #backend
+# Backend
 backend "remote" {
   organization = "Glitcher255_tf"
 
   workspaces { 
     name = "Terraform_Kubernetes_Gitea"
   }
+#}
 }
 }
 
-#Microsoft Azure provider
+# Microsoft Azure provider
 provider "azurerm" {
   features {
     resource_group {
@@ -34,22 +35,3 @@ provider "azurerm" {
     }
   }
 }
-
-
-#Get kubeconfig data
-# provider "kubernetes" {
-#   host                   = module.vm.kube_config.host
-#   client_certificate     = base64decode(module.vm.kube_config.client_certificate)
-#   client_key             = base64decode(module.vm.kube_config.client_key)
-#   cluster_ca_certificate = base64decode(module.vm.kube_config.cluster_ca_certificate)
-#   #config_path = "~/.kube/config"
-# }
-
-# provider "helm" {
-#   kubernetes = {
-#       host                   = module.vm.kube_config.host
-#   client_certificate     = base64decode(module.vm.kube_config.client_certificate)
-#   client_key             = base64decode(module.vm.kube_config.client_key)
-#   cluster_ca_certificate = base64decode(module.vm.kube_config.cluster_ca_certificate)
-#   }
-# }

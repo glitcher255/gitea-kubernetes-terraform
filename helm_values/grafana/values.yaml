@@ -1,24 +1,7 @@
 grafana:
-  adminPassword: "admin123"
+  # adminPassword: ""
   service:
     type: ClusterIP
-
-
-  
-  # ingress:
-  #   enabled: true
-  #   ingressClassName: traefik
-  #   annotations:
-  #     cert-manager.io/cluster-issuer: letsencrypt-staging
-  #     acme.cert-manager.io/http01-edit-in-place: "true"
-  #   hosts:
-  #     - grafana.51.8.215.187.nip.io
-  #   tls:
-  #     - hosts:
-  #       - grafana.51.8.215.187.nip.io
-  #   secretName: grafana-tls
-
-
 
   additionalDataSources:
     - name: Loki
@@ -34,3 +17,17 @@ grafana:
       url: http://tempo:3200
       isDefault: false
       editable: true
+
+alertmanager:
+  enabled: true
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: default-receiver
+    receivers:
+      - name: default-receiver
+        slack_configs:
+         # - api_url: https://hooks.slack.com/services/XXXX/YYYY/ZZZZ
+            channel: "#alerts"
+            send_resolved: true
