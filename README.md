@@ -11,8 +11,8 @@ It includes:
 - **MinIO** (object storage for Loki chunks)
 - **Gitea** (self-hosted Git service)
 
-Gitea accessable at: https://gitea.glitcher.ddnsfree.com
-Grafana portal accessable at: https://glitcher.ddnsfree.com
+Gitea accessible at: https://gitea.glitcher.ddnsfree.com
+Grafana portal accessible at: https://glitcher.ddnsfree.com
 
 ---
 
