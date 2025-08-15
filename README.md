@@ -52,7 +52,8 @@ It includes:
    - Persistent storage with PVC.
 7. **Azure Key Vault**
    - Stores sensitive values (Grafana admin password, Traefik API token).
-
+8. **Dynu DNS**
+   - REST API calls to DynuDNS to dynamically update the DNS for https://glitcher.ddnsfree.com and its subdomain
 ---
 
 ## Deployment
