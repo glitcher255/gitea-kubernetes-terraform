@@ -137,3 +137,13 @@ bash update-ingress.sh
 └───screenshots
 </pre>
 ---
+
+## 👤 Author
+
+[Glitcher255](https://github.com/glitcher255)
+
+---
+
+## 📝 License
+
+This project is licensed under the [MIT License](./LICENSE).
